@@ -1,12 +1,16 @@
 package testModeloDatos;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertSame;
+
+import java.util.GregorianCalendar;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import modeloDatos.*;
+import modeloDatos.Contratacion;
+import modeloDatos.EmpleadoPretenso;
+import modeloDatos.Empleador;
 
 public class TestContratacion {
 	
@@ -43,6 +47,14 @@ public class TestContratacion {
 		Empleador empleador = new Empleador("Franflorio", "123456", "Francisco", "2235825715", "COMERCIO_LOCAL", "FISICA");
 		c1.setEmpleador(empleador);
 		assertSame("El empleador no es el esperado", c1.getEmpleador(), empleador);
+	}
+	
+	@Test
+	public void testSetFecha() {
+		GregorianCalendar fecha = new GregorianCalendar();
+		Contratacion c1 = new Contratacion();
+		c1.setFecha(fecha);
+		assertSame("La fecha no es la esperada", fecha, c1.getFecha());
 	}
 
 }
