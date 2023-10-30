@@ -33,16 +33,33 @@ public class TestEmpleador {
 		assertEquals("El tipo de persona no es el esperado", "FISICA", e.getTipoPersona());
 	}
 	
+	@Test
+	public void testSetRubro() {
+		Empleador e = new Empleador("MatiF", "123456", "Matias", "2235825715", "COMERCIO_LOCAL", "FISICA");
+		e.setRubro("SALUD");
+		assertEquals("El rubro no es el esperado", "SALUD", e.getRubro());
+	}
+	
+	@Test
+	public void testSetTipoPersona() {
+		Empleador e = new Empleador("MatiF", "123456", "Matias", "2235825715", "COMERCIO_LOCAL", "FISICA");
+		e.setTipoPersona("JURIDICA");
+		assertEquals("El tipo de persona no es el esperado", "JURIDICA", e.getTipoPersona());
+	}
+	
+	
+	
+	@Test
 	public void testCalculaComisionSalud() {
 		Empleador e = new Empleador("MatiF", "123456", "Matias", "2235825715", "SALUD", "FISICA");
 		assertTrue("El cálculo de la comisión es incorrecto", 600.0  == e.calculaComision(ticket));
 	}
-	
+	@Test
 	public void testCalculaComisionLocal() {
 		Empleador e = new Empleador("MatiF", "123456", "Matias", "2235825715", "COMERCIO_LOCAL", "FISICA");
 		assertTrue("El cálculo de la comisión es incorrecto", 700.0  == e.calculaComision(ticket));
 	}
-
+	@Test
 	public void testCalculaComisionInternacional() {
 		Empleador e = new Empleador("MatiF", "123456", "Matias", "2235825715", "COMERCIO_INTERNACIONAL", "FISICA");
 		assertTrue("El cálculo de la comisión es incorrecto", 800.0  == e.calculaComision(ticket));
