@@ -15,7 +15,7 @@ public class TestEmpleador {
 	
 	@Before
 	public void setUp() throws Exception {
-		ticket = new Ticket("HOMEOFFICE",1000,"JORNADA_MEDIA","JUNIOR","EXP_MEDIA", "PRIMARIOS");
+		ticket = new Ticket("HOME_OFFICE",1000,"JORNADA_MEDIA","JUNIOR","EXP_MEDIA", "PRIMARIOS");
 	}
 
 	@After
