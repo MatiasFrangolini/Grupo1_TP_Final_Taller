@@ -11,11 +11,13 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import excepciones.ContraException;
 import excepciones.ImposibleCrearEmpleadoException;
 import excepciones.ImposibleCrearEmpleadorException;
 import excepciones.LimiteInferiorRemuneracionInvalidaException;
 import excepciones.LimiteSuperiorRemuneracionInvalidaException;
 import excepciones.NewRegisterException;
+import excepciones.NombreUsuarioException;
 import modeloDatos.ClientePuntaje;
 import modeloDatos.EmpleadoPretenso;
 import modeloDatos.Empleador;
@@ -159,6 +161,172 @@ public class TestAgencia {
 	@Test 
 	public void testCrearTicketEmpleado() {
 		
+	}
+	
+	@Test
+	public void testRegistroEmpleadoListaVaciaExitoso() {
+		EscenarioListaEmpleadosVacia esc = new EscenarioListaEmpleadosVacia();
+		a1.setEmpleados(esc.getEmpleados());
+		try {
+			a1.registroEmpleado("Berni", "berni1234", "Bernardo", "223123456", "Porfilio", 22);
+		} catch (NewRegisterException | ImposibleCrearEmpleadoException e) {
+			fail("No debería lanzar excepcion");
+		}
+	}
+	
+	
+	@Test
+	public void testRegistroEmpleadoImposibleCrearEmpleadoException() {
+		EscenarioListaEmpleadosVacia esc = new EscenarioListaEmpleadosVacia();
+		a1.setEmpleados(esc.getEmpleados());
+		try {
+			a1.registroEmpleado("Berni", null, "Bernardo", "223123456", "Porfilio", 22);
+			fail("Debería lanzar excepcion");
+		} catch (ImposibleCrearEmpleadoException e) {
+			
+		} catch (NewRegisterException e) {
+			fail("No debería lanzarse esta excepcion");
+		}
+	}
+	
+	
+	@Test
+	public void testRegistroEmpleadoListaConEmpleado() {
+		EscenarioListaEmpleadosConEmpleado esc = new EscenarioListaEmpleadosConEmpleado();
+		a1.setEmpleados(esc.getEmpleados());
+		try {
+			a1.registroEmpleado("Berni", "berni1234", "Bernardo", "223123456", "Porfilio", 22);
+			fail("Debería lanzar excepcion");
+		} catch (ImposibleCrearEmpleadoException e) {
+			fail("No debería lanzarse esta excepcion");
+		} catch (NewRegisterException e) {
+			
+		}
+	}
+	
+	
+	@Test
+	public void testRegistroEmpleadorListaVaciaExitoso() {
+		EscenarioListaEmpleadoresVacia esc = new EscenarioListaEmpleadoresVacia();
+		a1.setEmpleadores(esc.getEmpleadores());
+		
+		try {
+			a1.registroEmpleador("Berni", "berni1234", "Bernardo", "223123456", "SALUD", "FISICA");
+		} catch (NewRegisterException | ImposibleCrearEmpleadorException e) {
+			fail("No debería lanzar excepcion");
+		}
+		
+	}
+	
+	@Test
+	public void testRegistroEmpleadorImposibleCrearEmpleadorException1() {
+		EscenarioListaEmpleadoresVacia esc = new EscenarioListaEmpleadoresVacia();
+		a1.setEmpleadores(esc.getEmpleadores());
+		try {
+			a1.registroEmpleador("Berni", "berni1234", "Bernardo", "223123456", "SALUD", "FISICO");
+		} catch (ImposibleCrearEmpleadorException e) {
+			
+		} catch (NewRegisterException e) {
+			fail("No debería lanzar esta excepcion");
+		}
+		
+	}
+	
+	@Test
+	public void testRegistroEmpleadorImposibleCrearEmpleadorException2() {
+		EscenarioListaEmpleadoresVacia esc = new EscenarioListaEmpleadoresVacia();
+		a1.setEmpleadores(esc.getEmpleadores());
+		try {
+			a1.registroEmpleador("Berni", "berni1234", "Bernardo", "223123456", "VERDULERIA", "FISICA");
+		} catch (ImposibleCrearEmpleadorException e) {
+			
+		} catch (NewRegisterException e) {
+			fail("No debería lanzar esta excepcion");
+		}
+		
+	}
+	
+	@Test
+	public void testRegistroEmpleadorImposibleCrearEmpleadorException3() {
+		EscenarioListaEmpleadoresVacia esc = new EscenarioListaEmpleadoresVacia();
+		a1.setEmpleadores(esc.getEmpleadores());
+		try {
+			a1.registroEmpleador("Berni", "berni1234", null, "223123456", "SALUD", "FISICA");
+		} catch (ImposibleCrearEmpleadorException e) {
+			
+		} catch (NewRegisterException e) {
+			fail("No debería lanzar esta excepcion");
+		}
+		
+	}
+	
+	@Test
+	public void testRegistroEmpleadorNewRegisterException() {
+		EscenarioListaEmpleadoresConEmpleador esc = new EscenarioListaEmpleadoresConEmpleador();
+		a1.setEmpleadores(esc.getEmpleadores());
+		try {
+			a1.registroEmpleador("Berni", "berni1234", "Bernardo", "223123456", "SALUD", "FISICA");
+		} catch (ImposibleCrearEmpleadorException e) {
+			fail("No debería lanzar esta excepcion");
+		} catch (NewRegisterException e) {
+			
+		}
+		
+	}
+	
+	@Test
+	public void testLoginExitoso() {
+		EscenarioListaEmpleadoresConEmpleador esc = new EscenarioListaEmpleadoresConEmpleador();
+		a1.setEmpleadores(esc.getEmpleadores());
+		
+		try {
+			a1.login("Berni", "berni1234");
+		} catch (ContraException | NombreUsuarioException e) {
+			fail("No deberia lanzar excepcion");
+		}
+	}
+	
+	@Test
+	public void testLoginContraException() {
+		EscenarioListaEmpleadoresConEmpleador esc = new EscenarioListaEmpleadoresConEmpleador();
+		a1.setEmpleadores(esc.getEmpleadores());
+		
+		try {
+			a1.login("Berni", "mati1234");
+		} catch (ContraException e) {
+			
+		} catch (NombreUsuarioException e) {
+			fail("No deberia lanzar esta excepcion");
+		}
+	}
+	
+	
+	@Test
+	public void testLoginNombreUsuarioException() {
+		EscenarioListaEmpleadoresConEmpleador esc = new EscenarioListaEmpleadoresConEmpleador();
+		a1.setEmpleadores(esc.getEmpleadores());
+		
+		try {
+			a1.login("Mati", "berni1234");
+		} catch (ContraException e) {
+			fail("No deberia lanzar esta excepcion");
+		} catch (NombreUsuarioException e) {
+			
+		}
+	}
+	
+	@Test
+	public void testCerrarSesion() {
+		EscenarioListaEmpleadoresConEmpleador esc = new EscenarioListaEmpleadoresConEmpleador();
+		a1.setEmpleadores(esc.getEmpleadores());
+		try {
+			a1.login("Berni", "berni1234");
+		} catch (ContraException | NombreUsuarioException e) {
+			// Nunca entra aca
+		}
+		
+		a1.cerrarSesion();
+		assertTrue("No se cerro correctamente la sesion", a1.getTipoUsuario() == -1);
 	}
 
 }
