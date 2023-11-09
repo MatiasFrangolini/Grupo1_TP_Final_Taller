@@ -17,8 +17,6 @@ public class EscenarioAgenciaConListasVacias {
 	private HashMap<String, Empleador> empleadores = new HashMap<String, Empleador>();
 	
 	
-	//EN ESTE ESCENARIO TAMBIEN SE UTILIZA ESTADO CONTRATACION = FALSE
-	
 	{
 		a = Agencia.getInstance();
 		a.setEmpleadores(empleadores);
@@ -36,6 +34,9 @@ public class EscenarioAgenciaConListasVacias {
 	public HashMap<String, Empleador> getEmpleadores() {
 		return empleadores;
 	}
+	
+	
+	
 	
 
 }

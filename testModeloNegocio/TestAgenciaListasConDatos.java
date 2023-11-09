@@ -5,6 +5,8 @@ import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 
 import org.junit.After;
@@ -14,11 +16,14 @@ import org.junit.Test;
 import excepciones.ContraException;
 import excepciones.ImposibleCrearEmpleadoException;
 import excepciones.ImposibleCrearEmpleadorException;
+import excepciones.ImposibleModificarTicketsException;
 import excepciones.LimiteInferiorRemuneracionInvalidaException;
 import excepciones.LimiteSuperiorRemuneracionInvalidaException;
 import excepciones.NewRegisterException;
 import excepciones.NombreUsuarioException;
+import modeloDatos.Cliente;
 import modeloDatos.ClientePuntaje;
+import modeloDatos.Contratacion;
 import modeloDatos.EmpleadoPretenso;
 import modeloDatos.Empleador;
 import modeloDatos.Ticket;
@@ -33,12 +38,15 @@ public class TestAgenciaListasConDatos {
 	
 	@Before
 	public void setUp() throws Exception {
-		esc = new EscenarioAgenciaConListasConDatos();
-		a = Agencia.getInstance();
+		this.esc = new EscenarioAgenciaConListasConDatos();
+		this.a = Agencia.getInstance();
 	}
 
 	@After
 	public void tearDown() throws Exception {
+		this.a.setCoincidencias(new ArrayList<Contratacion>());
+		this.a.setContrataciones(new ArrayList<Contratacion>());
+		this.a.setComisionesUsuarios(new HashMap<Cliente, Double>());
 	}
 	
 	
@@ -89,19 +97,12 @@ public class TestAgenciaListasConDatos {
 	
 	@Test
 	public void testMatch() {
-		EmpleadoPretenso empleado = new EmpleadoPretenso("MatiF", "123456", "Matias", "2235825715", "Frangolini", 21);
-		Empleador empleador = new Empleador("MatiF", "123456", "Matias", "2235825715", Constantes.COMERCIO_LOCAL, Constantes.FISICA);
-		empleador.setTicket(new Ticket(Constantes.INDISTINTO,5000, Constantes.JORNADA_EXTENDIDA,Constantes.MANAGMENT,Constantes.EXP_MUCHA, Constantes.TERCIARIOS));
+		EmpleadoPretenso empleado = this.esc.getEmpleados().get("Mati");
+		Empleador empleador = this.esc.getEmpleadores().get("Berni");
+		
 		int oldSizeContrataciones = a.getContrataciones().size();
 		int oldPuntajeEmpleador = empleador.getPuntaje();
 		int oldPuntajeEmpleado = empleado.getPuntaje();
-
-		try {
-			a.registroEmpleado("MatiF", "123456", "Matias", "2235825715", "Frangolini", 21);
-			a.registroEmpleador("MatiF", "123456", "Matias", "2235825715", Constantes.COMERCIO_LOCAL, Constantes.FISICA);
-		} catch (NewRegisterException | ImposibleCrearEmpleadorException | ImposibleCrearEmpleadoException e) {
-			//Nunca va a entrar aca
-		}
 		
 		a.match(empleador, empleado);
 		
@@ -147,6 +148,9 @@ public class TestAgenciaListasConDatos {
 		a.setEmpleados(esc.getEmpleados());
 		
 		a.generaPostulantes();
+		
+		assertTrue("No se generó la lista de postulantes del empleado", a.getEmpleados().get("Berni").getListaDePostulantes().size() > 0);
+		assertTrue("No se generó la lista de postulantes del empleador", a.getEmpleadores().get("Berni").getListaDePostulantes().size() > 0);
 		
 		EmpleadoPretenso e = esc.getEmpleados().get("Mati");
 		Iterator<ClientePuntaje> it1 = e.getListaDePostulantes().iterator();
@@ -247,7 +251,154 @@ public class TestAgenciaListasConDatos {
 	
 	@Test
 	public void testGatillarRondaEstadoContratacionTrue() {
+		a.setEstadoContratacion(true);
+		
+		a.generaPostulantes();
+		a.getEmpleadores().get("Mati").setPuntaje(50);
+		
+		a.gatillarRonda();
+		
+		assertEquals("No se eliminaron los postulantes del empleador", a.getEmpleadores().get("Mati").getListaDePostulantes(), null);
+		assertEquals("No se eliminaron los postulantes del empleado", a.getEmpleados().get("Pedro").getListaDePostulantes(), null);
+		assertTrue("Estado contratación debería pasar a ser falso", !(a.isEstadoContratacion()));
+		assertTrue("No se aplico el castigo por no ser elegido en la ronda", this.a.getEmpleadores().get("Mati").getPuntaje() == 30);
+
+	}
+	
+	
+	@Test
+	public void testGatillarRondaEstadoContratacionFalse() {
+		a.setEstadoContratacion(false);
+		
+		a.getEmpleados().get("Pedro").setPuntaje(50);
+		a.getEmpleados().get("Mati").setPuntaje(20);
+		
+		a.gatillarRonda();
+		
+		assertTrue("No se generaron los postulantes del empleador", a.getEmpleadores().get("Mati").getListaDePostulantes().size() > 0);
+		assertTrue("No se generaron los postulantes del empleado", a.getEmpleados().get("Pedro").getListaDePostulantes().size() > 0);
+		assertTrue("Estado contratación debería pasar a ser true", a.isEstadoContratacion());
+		assertTrue("No se aplico el premio al empleador", this.a.getEmpleadores().get("Fran").getPuntaje() == 10);
+		assertTrue("No se aplico el premio al empleado", this.a.getEmpleados().get("Pedro").getPuntaje() == 60);
+		assertTrue("No se aplico el castigo al empleado", this.a.getEmpleados().get("Mati").getPuntaje() == 15);
+
+	}
+	
+	
+	@Test
+	public void testCalculaPremiosCastigosAsignacionesTestPremios() {
+		a.getEmpleados().get("Pedro").setPuntaje(50);
+		a.getEmpleadores().get("Fran").setPuntaje(20);
+		a.generaPostulantes();
+		a.calculaPremiosCastigosAsignaciones();
+		
+		//Empleado Pedro deberia tener puntaje = 60 (+10)
+		//Empleado Mati deberia tener puntaje = -5 (-5) 
+		//Empleado Berni deberia tener puntaje = -5 (-5)
+		
+		//Empleador Pedro deberia tener puntaje = 0 (+0)
+		//Empleador Fran deberia tener puntaje = 30 (+10), el resto 10 (+10)
+		
+		assertTrue("El puntaje del empleador no es correcto", a.getEmpleadores().get("Fran").getPuntaje() == 30);
+		assertTrue("El puntaje del empleado no es correcto", a.getEmpleados().get("Pedro").getPuntaje() == 60);
+		
 		
 	}
+	
+	
+	@Test
+	public void testCalculaPremiosCastigosAsignacionesTestCastigos() {
+		
+		a.getEmpleados().get("Mati").setPuntaje(20);
+		
+		a.generaPostulantes();
+		a.calculaPremiosCastigosAsignaciones();
+		
+		assertTrue("El puntaje del empleado no es correcto", a.getEmpleados().get("Mati").getPuntaje() == 15);
+		
+		
+	}
+	
+	
+	@Test
+	public void testCrearTicketEmpleado() {
+		a.setEstadoContratacion(false);
+		try {
+			this.a.crearTicketEmpleado(Constantes.HOME_OFFICE, 5000, Constantes.JORNADA_MEDIA, Constantes.JUNIOR, Constantes.EXP_MUCHA, Constantes.SECUNDARIOS, esc.getEmpleados().get("Mati"));
+		} catch (ImposibleModificarTicketsException e) {
+			fail("No deberia lanzar excepcion");
+		}
+	}
+	
+	@Test
+	public void testCrearTicketEmpleadoException() {
+		a.setEstadoContratacion(true);
+		try {
+			this.a.crearTicketEmpleado(Constantes.HOME_OFFICE, 5000, Constantes.JORNADA_MEDIA, Constantes.JUNIOR, Constantes.EXP_MUCHA, Constantes.SECUNDARIOS, esc.getEmpleados().get("Mati"));
+			fail("Deberia lanzar ImposibleModificarTicketsException");
+		} catch (ImposibleModificarTicketsException e) {
+			
+		}
+	}
+	
+	
+	@Test
+	public void testCrearTicketEmpleador() {
+		a.setEstadoContratacion(true);
+		try {
+			this.a.crearTicketEmpleador(Constantes.HOME_OFFICE, 5000, Constantes.JORNADA_MEDIA, Constantes.JUNIOR, Constantes.EXP_MUCHA, Constantes.SECUNDARIOS, esc.getEmpleadores().get("Mati"));
+		} catch (ImposibleModificarTicketsException e) {
+			fail("No deberia lanzar excepcion");
+		}
+	}
+	
+	@Test
+	public void testCrearTicketEmpleadorException() {
+		a.setEstadoContratacion(false);
+		try {
+			this.a.crearTicketEmpleador(Constantes.HOME_OFFICE, 5000, Constantes.JORNADA_MEDIA, Constantes.JUNIOR, Constantes.EXP_MUCHA, Constantes.SECUNDARIOS, esc.getEmpleadores().get("Mati"));
+			fail("Deberia lanzar ImposibleModificarTicketsException");
+		} catch (ImposibleModificarTicketsException e) {
+			
+		}
+	}
+	
+	
+	@Test
+	public void testEliminarTicket() {
+		a.setEstadoContratacion(false);
+		int oldPuntaje = a.getEmpleados().get("Berni").getPuntaje();
+		try {
+			a.login("Berni", "berni1234");
+		} catch (ContraException | NombreUsuarioException e) {
+		}
+		
+		try {
+			a.eliminarTicket();
+		} catch (ImposibleModificarTicketsException e) {
+			fail("No deberia lanzar excepcion");
+		}
+		assertTrue("No se resto el puntaje por eliminar Ticket", oldPuntaje -1 == a.getEmpleados().get("Berni").getPuntaje());
+		assertEquals("El ticket deberia haberse eliminado", a.getEmpleados().get("Berni").getTicket(), null);
+	}
+	
+	
+	@Test
+	public void testEliminarTicketException() {
+		a.setEstadoContratacion(true);
+		try {
+			a.login("Berni", "berni1234");
+		} catch (ContraException | NombreUsuarioException e) {
+		}
+		Ticket tAux = a.getEmpleados().get("Berni").getTicket();
+		try {
+			a.eliminarTicket();
+			fail("Deberia lanzar ImposibleModificarTicketsException");
+		} catch (ImposibleModificarTicketsException e) {
+		}
+		assertEquals("El ticket no deberia haberse eliminado", a.getEmpleados().get("Berni").getTicket(), tAux);
+	}
+	
+	
 
 }

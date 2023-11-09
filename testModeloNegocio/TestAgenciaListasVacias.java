@@ -109,9 +109,6 @@ public class TestAgenciaListasVacias {
 	}
 	
 	
-	@Test
-	public void testGatillarRondaEstadoContratacionFalse() {
-		
-	}
+	
 
 }
