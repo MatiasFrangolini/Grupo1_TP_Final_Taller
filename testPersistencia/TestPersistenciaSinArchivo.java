@@ -13,6 +13,7 @@ import org.junit.Test;
 import excepciones.LimiteInferiorRemuneracionInvalidaException;
 import excepciones.LimiteSuperiorRemuneracionInvalidaException;
 import modeloNegocio.Agencia;
+import persistencia.PersistenciaXML;
 
 public class TestPersistenciaSinArchivo {
 	
@@ -34,17 +35,27 @@ public class TestPersistenciaSinArchivo {
 	@Test
 	public void testCrearArchivo() {
 		try {
-			try {
-				a.setLimitesRemuneracion(1000, 3000);
-			} catch (LimiteSuperiorRemuneracionInvalidaException | LimiteInferiorRemuneracionInvalidaException e) {
-			}
+			PersistenciaXML persistencia = new PersistenciaXML();
+			persistencia.abrirOutput("Agencia.xml");
 			a.guardarAgencia("Agencia.xml");
 			File arch = new File("Agencia.xml");
-			assertTrue("Debería existir el archivo Agencia.xml", arch.exists());
+			persistencia.cerrarOutput();
+			assertTrue("Debería existir el archivo Agencia.xml", arch.exists());	
 		} catch (IOException e) {
 			fail("No deberia lanzar excepcion");
 		}
 		
 	}
-
+	
+	
+	@Test
+	public void testDespersistirSinArchivo() {
+		try {
+			assertTrue("No se deberia haber cargado una agencia, no existe el archivo", !(a.cargarAgencia("Agencia.xml")));
+		} catch (ClassNotFoundException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+			
+	}	
 }

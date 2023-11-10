@@ -13,6 +13,7 @@ import modeloDatos.ClientePuntaje;
 import modeloDatos.EmpleadoPretenso;
 import modeloDatos.Empleador;
 import modeloDatos.Ticket;
+import util.Constantes;
 
 public class TestCliente {
 	
@@ -35,14 +36,14 @@ public class TestCliente {
 	
 	@Test
 	public void testSetTicket() {
-		Ticket t = new Ticket("HOMEOFFICE",1000,"JORNADA_MEDIA","JUNIOR","EXP_MEDIA", "PRIMARIOS");
+		Ticket t = new Ticket(Constantes.HOME_OFFICE,1000, Constantes.JORNADA_MEDIA,Constantes.JUNIOR,Constantes.EXP_NADA, Constantes.PRIMARIOS);
 		e.setTicket(t);
 		assertEquals("El ticket no es el esperado", t, e.getTicket());
 	}
 	
 	@Test
 	public void testSetCandidato() {
-		Empleador emp = new Empleador("MatiF", "123456", "Matias", "2235825715", "COMERCIO_LOCAL", "FISICA");
+		Empleador emp = new Empleador("MatiF", "123456", "Matias", "2235825715", Constantes.COMERCIO_LOCAL, Constantes.FISICA);
 		e.setCandidato(emp);
 		assertEquals("El candidato no es el esperado", emp, e.getCandidato());
 	}

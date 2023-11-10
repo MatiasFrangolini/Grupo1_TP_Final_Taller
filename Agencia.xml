@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="17.0.6" class="java.beans.XMLDecoder">
+ <object class="persistencia.AgenciaDTO" id="AgenciaDTO0">
+  <void property="empleadores">
+   <void method="put">
+    <string>Fran</string>
+    <object class="modeloDatos.Empleador">
+     <void property="password">
+      <string>123456</string>
+     </void>
+     <void property="realName">
+      <string>2235825715</string>
+     </void>
+     <void property="rubro">
+      <string>COMERCIO LOCAL</string>
+     </void>
+     <void property="telefono">
+      <string>Francisco</string>
+     </void>
+     <void property="tipoPersona">
+      <string>FISICA</string>
+     </void>
+     <void property="usserName">
+      <string>Fran</string>
+     </void>
+    </object>
+   </void>
+   <void method="put">
+    <string>Pedro</string>
+    <object class="modeloDatos.Empleador">
+     <void property="password">
+      <string>123456</string>
+     </void>
+     <void property="realName">
+      <string>2235825715</string>
+     </void>
+     <void property="rubro">
+      <string>COMERCIO LOCAL</string>
+     </void>
+     <void property="telefono">
+      <string>Pedro</string>
+     </void>
+     <void property="tipoPersona">
+      <string>FISICA</string>
+     </void>
+     <void property="usserName">
+      <string>Pedro</string>
+     </void>
+    </object>
+   </void>
+   <void method="put">
+    <string>Mati</string>
+    <object class="modeloDatos.Empleador">
+     <void property="password">
+      <string>123456</string>
+     </void>
+     <void property="realName">
+      <string>2235825715</string>
+     </void>
+     <void property="rubro">
+      <string>COMERCIO LOCAL</string>
+     </void>
+     <void property="telefono">
+      <string>Matias</string>
+     </void>
+     <void property="tipoPersona">
+      <string>FISICA</string>
+     </void>
+     <void property="usserName">
+      <string>Mati</string>
+     </void>
+    </object>
+   </void>
+  </void>
+  <void property="empleados">
+   <void method="put">
+    <string>Fran</string>
+    <object class="modeloDatos.EmpleadoPretenso">
+     <void property="apellido">
+      <string>Florio</string>
+     </void>
+     <void property="edad">
+      <int>21</int>
+     </void>
+     <void property="password">
+      <string>123456</string>
+     </void>
+     <void property="realName">
+      <string>Francisco</string>
+     </void>
+     <void property="telefono">
+      <string>2235825715</string>
+     </void>
+     <void property="usserName">
+      <string>Fran</string>
+     </void>
+    </object>
+   </void>
+   <void method="put">
+    <string>Pedro</string>
+    <object class="modeloDatos.EmpleadoPretenso">
+     <void property="apellido">
+      <string>Iarritu</string>
+     </void>
+     <void property="edad">
+      <int>21</int>
+     </void>
+     <void property="password">
+      <string>123456</string>
+     </void>
+     <void property="realName">
+      <string>Pedro</string>
+     </void>
+     <void property="telefono">
+      <string>2235825715</string>
+     </void>
+     <void property="usserName">
+      <string>Pedro</string>
+     </void>
+    </object>
+   </void>
+   <void method="put">
+    <string>Berni</string>
+    <object class="modeloDatos.EmpleadoPretenso">
+     <void property="apellido">
+      <string>Porfilio</string>
+     </void>
+     <void property="edad">
+      <int>21</int>
+     </void>
+     <void property="password">
+      <string>123456</string>
+     </void>
+     <void property="realName">
+      <string>Bernardo</string>
+     </void>
+     <void property="telefono">
+      <string>2235825715</string>
+     </void>
+     <void property="usserName">
+      <string>Berni</string>
+     </void>
+    </object>
+   </void>
+   <void method="put">
+    <string>Mati</string>
+    <object class="modeloDatos.EmpleadoPretenso">
+     <void property="apellido">
+      <string>Frangolini</string>
+     </void>
+     <void property="edad">
+      <int>21</int>
+     </void>
+     <void property="password">
+      <string>123456</string>
+     </void>
+     <void property="realName">
+      <string>Matias</string>
+     </void>
+     <void property="telefono">
+      <string>2235825715</string>
+     </void>
+     <void property="usserName">
+      <string>Mati</string>
+     </void>
+    </object>
+   </void>
+  </void>
+  <void property="limiteSuperior">
+   <int>2000</int>
+  </void>
+ </object>
+</java>
