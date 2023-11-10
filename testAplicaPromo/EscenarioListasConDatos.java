@@ -1,4 +1,4 @@
-package TestAplicaPromo;
+package testAplicaPromo;
 
 import static org.junit.Assert.fail;
 
@@ -23,6 +23,8 @@ public class EscenarioListasConDatos {
 	{
 		empleado = new EmpleadoPretenso("Fran", "123456", "Francisco", "2235825715", "Florio", 21);
 		empleador = new Empleador("Mati", "123456", "Matias", "2235825715", Constantes.COMERCIO_LOCAL, Constantes.FISICA);
+		empleadores.put("Mati", empleador);
+		empleados.put("Fran", empleado);
 	}
 
 	public HashMap<String, Empleador> getEmpleadores() {

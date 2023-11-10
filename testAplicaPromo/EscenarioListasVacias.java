@@ -1,4 +1,4 @@
-package TestAplicaPromo;
+package testAplicaPromo;
 
 import static org.junit.Assert.*;
 
