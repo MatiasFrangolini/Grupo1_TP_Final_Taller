@@ -78,54 +78,63 @@ public class TestEmpleadoPretenso {
 	@Test
 	public void testCalculaComisionJunior() {
 		ClientePuntaje cp = new ClientePuntaje(-1.0, e);  // Se pone puntaje negativo para que no influya en el cálculo de la comisión
+		e.setPuntaje(-1);
 		assertTrue("El cálculo de la comisión es incorrecto", 800.0  == e.calculaComision(esc1.getTicket()));
 	}
 	
 	@Test
 	public void testCalculaComisionSenior() {
 		ClientePuntaje cp = new ClientePuntaje(-1.0, e); // Se pone puntaje negativo para que no influya en el cálculo de la comisión
+		e.setPuntaje(-1);
 		assertTrue("El cálculo de la comisión es incorrecto", 2700.0  == e.calculaComision(esc2.getTicket()));
 	}
 	
 	@Test
 	public void testCalculaComisionManagment() {
 		ClientePuntaje cp = new ClientePuntaje(-1.0, e); // Se pone puntaje negativo para que no influya en el cálculo de la comisión
+		e.setPuntaje(-1);
 		assertTrue("El cálculo de la comisión es incorrecto", 5000.0  == e.calculaComision(esc3.getTicket()));
 	}
 	
 	@Test
 	public void testCalculaComisionJuniorPuntaje() {
 		ClientePuntaje cp = new ClientePuntaje(10.0, e);
+		e.setPuntaje(10);
 		assertTrue("El cálculo de la comisión es incorrecto", (800.0*0.9)  == e.calculaComision(esc1.getTicket()));
 	}
 	
 	@Test
 	public void testCalculaComisionSeniorPuntaje() {
 		ClientePuntaje cp = new ClientePuntaje(10.0, e);
+		e.setPuntaje(10);
 		assertTrue("El cálculo de la comisión es incorrecto", (2700.0*0.9)  == e.calculaComision(esc2.getTicket()));
 	}
 	
 	@Test
 	public void testCalculaComisionManagmentPuntaje() {
 		ClientePuntaje cp = new ClientePuntaje(10.0, e);
+		e.setPuntaje(10);
 		assertTrue("El cálculo de la comisión es incorrecto", (5000.0*0.9)  == e.calculaComision(esc3.getTicket()));
 	}
 	
 	@Test
 	public void testCalculaComisionJuniorPuntajeMaximo() {
 		ClientePuntaje cp = new ClientePuntaje(100.0, e);
+		e.setPuntaje(100);
 		assertTrue("El cálculo de la comisión es incorrecto", (800.0*0.5)  == e.calculaComision(esc1.getTicket()));
 	}
 	
 	@Test
 	public void testCalculaComisionSeniorPuntajeMaximo() {
 		ClientePuntaje cp = new ClientePuntaje(100.0, e);
+		e.setPuntaje(100);
 		assertTrue("El cálculo de la comisión es incorrecto", (2700.0*0.5)  == e.calculaComision(esc2.getTicket()));
 	}
 	
 	@Test
 	public void testCalculaComisionManagmentPuntajeMaximo() {
 		ClientePuntaje cp = new ClientePuntaje(100.0, e);
+		e.setPuntaje(100);
 		assertTrue("El cálculo de la comisión es incorrecto", (5000.0*0.5)  == e.calculaComision(esc3.getTicket()));
 	}
 	

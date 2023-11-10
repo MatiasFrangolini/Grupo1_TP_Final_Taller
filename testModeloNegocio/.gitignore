@@ -5,3 +5,8 @@
 /EscenarioListaEmpleadosConEmpleado.class
 /EscenarioListaEmpleadoresConEmpleador.class
 /EscenarioListaEmpleadoresVacia.class
+/EscenarioAgenciaConListas.class
+/EscenarioAgenciaConListasConDatos.class
+/EscenarioAgenciaConListasVacias.class
+/TestAgenciaListasConDatos.class
+/TestAgenciaListasVacias.class
