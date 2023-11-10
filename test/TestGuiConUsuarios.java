@@ -132,14 +132,8 @@ public class TestGuiConUsuarios {
 		robot.delay(TestUtils.getDelay());
 		JPanel panelReg = new PanelRegistro(this.controlador);
 		JButton botonRegistrar = (JButton) TestUtils.getComponentForName((Component) this.controlador.getVista(), Constantes.REGISTRAR);
-		//TestUtils.clickComponent(botonRegistrar, robot);
-		this.vent.setContentPane(panelReg);
-		System.out.println(this.controlador.getVista().getUsserName());
-		//assertEquals("No se paso al panel de registro", this.vent.getContentPane(), panelReg);
-		//this.vent.setContentPane(panelReg);
-		System.out.println(this.vent.getContentPane());
-		
-		robot.delay(2000);
+		TestUtils.clickComponent(botonRegistrar, robot);
+	//AVERIGUAR COMO CHECKEAR ESTO	assertEquals("No se cambio al panel registro", this.vent.getContentPane(),	panelReg);
 	}
 	
 
