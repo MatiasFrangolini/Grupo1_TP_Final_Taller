@@ -166,6 +166,7 @@ public class TestGuiEnabledDisabledCliente {
 		TestUtils.tipeaTexto("1000", robot);
 		TestUtils.clickComponent(botonConfirmarTicket, robot);
 		JButton botonEliminarTicket = (JButton) TestUtils.getComponentForName(vent, Constantes.ELIMINAR_TICKET);
+		robot.delay(TestUtils.getDelay());
 		assertTrue("El boton para eliminar ticket debería estar habilitado", botonEliminarTicket.isEnabled());
 	}
 	
