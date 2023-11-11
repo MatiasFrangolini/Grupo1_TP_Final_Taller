@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="17.0.8" class="java.beans.XMLDecoder">
+ <object class="persistencia.AgenciaDTO" id="AgenciaDTO0">
+  <void property="empleadores">
+   <void method="put">
+    <string>matias</string>
+    <object class="modeloDatos.Empleador">
+     <void property="listaDePostulantes">
+      <object class="java.util.ArrayList"/>
+     </void>
+     <void property="password">
+      <string>123123</string>
+     </void>
+     <void property="puntaje">
+      <int>40</int>
+     </void>
+     <void property="realName">
+      <string>123123</string>
+     </void>
+     <void property="rubro">
+      <string>FISICA</string>
+     </void>
+     <void property="telefono">
+      <string>matias</string>
+     </void>
+     <void property="ticket">
+      <object class="modeloDatos.Ticket">
+       <void property="estudios">
+        <string>Primario</string>
+       </void>
+       <void property="experiencia">
+        <string>ExperienciaNada</string>
+       </void>
+       <void property="jornada">
+        <string>CargaMedia</string>
+       </void>
+       <void property="locacion">
+        <string>Presencial</string>
+       </void>
+       <void property="puesto">
+        <string>Junior</string>
+       </void>
+       <void property="remuneracion">
+        <int>1000</int>
+       </void>
+      </object>
+     </void>
+     <void property="tipoPersona">
+      <string>SALUD</string>
+     </void>
+     <void property="usserName">
+      <string>matias</string>
+     </void>
+    </object>
+   </void>
+   <void method="put">
+    <string>mati</string>
+    <object class="modeloDatos.Empleador">
+     <void property="listaDePostulantes">
+      <object class="java.util.ArrayList"/>
+     </void>
+     <void property="password">
+      <string>123123</string>
+     </void>
+     <void property="puntaje">
+      <int>39</int>
+     </void>
+     <void property="realName">
+      <string>123123</string>
+     </void>
+     <void property="rubro">
+      <string>FISICA</string>
+     </void>
+     <void property="telefono">
+      <string>matias</string>
+     </void>
+     <void property="ticket">
+      <object class="modeloDatos.Ticket">
+       <void property="estudios">
+        <string>Primario</string>
+       </void>
+       <void property="experiencia">
+        <string>ExperienciaNada</string>
+       </void>
+       <void property="jornada">
+        <string>CargaMedia</string>
+       </void>
+       <void property="locacion">
+        <string>Presencial</string>
+       </void>
+       <void property="puesto">
+        <string>Junior</string>
+       </void>
+       <void property="remuneracion">
+        <int>1000</int>
+       </void>
+      </object>
+     </void>
+     <void property="tipoPersona">
+      <string>SALUD</string>
+     </void>
+     <void property="usserName">
+      <string>mati</string>
+     </void>
+    </object>
+   </void>
+  </void>
+  <void property="empleados">
+   <void method="put">
+    <string>berni</string>
+    <object class="modeloDatos.EmpleadoPretenso">
+     <void property="apellido">
+      <string>123123</string>
+     </void>
+     <void property="edad">
+      <int>22</int>
+     </void>
+     <void property="password">
+      <string>123123</string>
+     </void>
+     <void property="realName">
+      <string>matias</string>
+     </void>
+     <void property="telefono">
+      <string>porfilio</string>
+     </void>
+     <void property="usserName">
+      <string>berni</string>
+     </void>
+    </object>
+   </void>
+  </void>
+  <void property="estadoContratacion">
+   <boolean>true</boolean>
+  </void>
+  <void property="limiteSuperior">
+   <int>5000</int>
+  </void>
+ </object>
+</java>

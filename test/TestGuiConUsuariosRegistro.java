@@ -51,6 +51,7 @@ public class TestGuiConUsuariosRegistro {
 		a.setEmpleados(new HashMap<String, EmpleadoPretenso>());
 		this.vent.setVisible(false);
 	}
+	
 
 	@Test
 	public void testRegistroEmpleadorExitoso() {
@@ -108,7 +109,7 @@ public class TestGuiConUsuariosRegistro {
 		TestUtils.clickComponent(textoEdad, robot);
 		TestUtils.tipeaTexto("22", robot);
 		TestUtils.clickComponent(botonRegistrar, robot);
-		
+		robot.delay(TestUtils.getDelay());
 		assertEquals("No se registro al empleado", a.getEmpleados().size()==sizeanterior+1);
 	}
 	
@@ -134,6 +135,7 @@ public class TestGuiConUsuariosRegistro {
 		TestUtils.clickComponent(textoTelefono, robot);
 		TestUtils.tipeaTexto("2231234567", robot);
 		TestUtils.clickComponent(botonRegistrar, robot);
+		robot.delay(TestUtils.getDelay());
 		assertEquals("No se mostró el mensaje esperado", Mensajes.USUARIO_REPETIDO.getValor(), op.getMensaje());
 	}
 		
@@ -191,6 +193,7 @@ public class TestGuiConUsuariosRegistro {
 		TestUtils.clickComponent(textoTelefono, robot);
 		TestUtils.tipeaTexto("2231234567", robot);
 		TestUtils.clickComponent(botonRegistrar, robot);
+		robot.delay(TestUtils.getDelay());
 		assertEquals("No se mostró el mensaje esperado", Mensajes.PASS_NO_COINCIDE.getValor(), op.getMensaje());
 	}
 }
