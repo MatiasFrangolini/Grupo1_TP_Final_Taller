@@ -1,4 +1,4 @@
-package TestAplicaPromo;
+package testAplicaPromo;
 
 import java.util.HashMap;
 import java.util.Iterator;
