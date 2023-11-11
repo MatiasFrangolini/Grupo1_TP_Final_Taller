@@ -168,4 +168,29 @@ public class TestGuiConUsuariosRegistro {
 		
 		assertEquals("No se mostró el mensaje esperado", Mensajes.USUARIO_REPETIDO.getValor(), op.getMensaje());
 	}	 
+	
+	@Test
+	public void testPassDistintas() {
+		robot.delay(TestUtils.getDelay());
+		JTextField textoUserName = (JTextField) TestUtils.getComponentForName((Component) this.controlador.getVista(), Constantes.REG_USSER_NAME);
+		JTextField textoPass = (JTextField) TestUtils.getComponentForName((Component) this.controlador.getVista(), Constantes.REG_PASSWORD);
+		JTextField textoConfPass = (JTextField) TestUtils.getComponentForName((Component) this.controlador.getVista(), Constantes.REG_CONFIRM_PASSWORD);
+		JTextField textoRealName = (JTextField) TestUtils.getComponentForName((Component) this.controlador.getVista(), Constantes.REG_REAL_NAME);
+		JTextField textoTelefono = (JTextField) TestUtils.getComponentForName((Component) this.controlador.getVista(), Constantes.REG_TELEFONO);
+		JRadioButton radioempleador = (JRadioButton) TestUtils.getComponentForName((Component) this.controlador.getVista(), Constantes.EMPLEADOR);
+		JButton botonRegistrar = (JButton) TestUtils.getComponentForName((Component) this.controlador.getVista(), Constantes.REG_BUTTON_REGISTRAR);
+		TestUtils.clickComponent(radioempleador, robot);
+		TestUtils.clickComponent(textoUserName, robot);
+		TestUtils.tipeaTexto("berni1234", robot);
+		TestUtils.clickComponent(textoPass, robot);
+		TestUtils.tipeaTexto("milanga", robot);
+		TestUtils.clickComponent(textoConfPass, robot);
+		TestUtils.tipeaTexto("pizza", robot);
+		TestUtils.clickComponent(textoRealName, robot);
+		TestUtils.tipeaTexto("Bernardo", robot);
+		TestUtils.clickComponent(textoTelefono, robot);
+		TestUtils.tipeaTexto("2231234567", robot);
+		TestUtils.clickComponent(botonRegistrar, robot);
+		assertEquals("No se mostró el mensaje esperado", Mensajes.PASS_NO_COINCIDE.getValor(), op.getMensaje());
+	}
 }
