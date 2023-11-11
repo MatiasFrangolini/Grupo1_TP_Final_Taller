@@ -1,4 +1,4 @@
-package test;
+package testGui;
 
 import static org.junit.Assert.assertTrue;
 

@@ -1,4 +1,4 @@
-package test;
+package testGui;
 
 import java.awt.Component;
 
