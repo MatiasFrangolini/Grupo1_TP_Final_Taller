@@ -47,6 +47,8 @@ public class TestAgenciaListasConDatos {
 		this.a.setCoincidencias(new ArrayList<Contratacion>());
 		this.a.setContrataciones(new ArrayList<Contratacion>());
 		this.a.setComisionesUsuarios(new HashMap<Cliente, Double>());
+		this.a.setEmpleadores(new HashMap<String, Empleador>());
+		this.a.setEmpleados(new HashMap<String, EmpleadoPretenso>());
 	}
 	
 	
@@ -344,7 +346,7 @@ public class TestAgenciaListasConDatos {
 	
 	@Test
 	public void testCrearTicketEmpleador() {
-		a.setEstadoContratacion(true);
+		a.setEstadoContratacion(false);
 		try {
 			this.a.crearTicketEmpleador(Constantes.HOME_OFFICE, 5000, Constantes.JORNADA_MEDIA, Constantes.JUNIOR, Constantes.EXP_MUCHA, Constantes.SECUNDARIOS, esc.getEmpleadores().get("Mati"));
 		} catch (ImposibleModificarTicketsException e) {
@@ -354,7 +356,7 @@ public class TestAgenciaListasConDatos {
 	
 	@Test
 	public void testCrearTicketEmpleadorException() {
-		a.setEstadoContratacion(false);
+		a.setEstadoContratacion(true);
 		try {
 			this.a.crearTicketEmpleador(Constantes.HOME_OFFICE, 5000, Constantes.JORNADA_MEDIA, Constantes.JUNIOR, Constantes.EXP_MUCHA, Constantes.SECUNDARIOS, esc.getEmpleadores().get("Mati"));
 			fail("Deberia lanzar ImposibleModificarTicketsException");

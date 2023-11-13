@@ -1,6 +1,8 @@
 package testModeloNegocio;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.fail;
+
+import java.util.HashMap;
 
 import org.junit.After;
 import org.junit.Before;
@@ -9,6 +11,8 @@ import org.junit.Test;
 import excepciones.ImposibleCrearEmpleadoException;
 import excepciones.ImposibleCrearEmpleadorException;
 import excepciones.NewRegisterException;
+import modeloDatos.EmpleadoPretenso;
+import modeloDatos.Empleador;
 import modeloNegocio.Agencia;
 import util.Constantes;
 
@@ -26,6 +30,8 @@ public class TestAgenciaListasVacias {
 
 	@After
 	public void tearDown() throws Exception {
+		this.a.setEmpleadores(new HashMap<String, Empleador>());
+		this.a.setEmpleados(new HashMap<String, EmpleadoPretenso>());
 	}
 	
 	
@@ -48,7 +54,7 @@ public class TestAgenciaListasVacias {
 	public void testRegistroEmpleadorImposibleCrearEmpleadorException1() {
 		a.setEmpleadores(esc.getEmpleadores());
 		try {
-			a.registroEmpleador("Berni", "berni1234", "Bernardo", "223123456", "VERDULERIA", Constantes.FISICA);
+			a.registroEmpleador("Berni", "berni1234", "Bernardo", "223123456", Constantes.FISICA, "Verduleria");
 			fail("Debería lanzar ImposibleCrearEmpleadorException");
 		} catch (ImposibleCrearEmpleadorException e) {
 			
@@ -63,7 +69,7 @@ public class TestAgenciaListasVacias {
 	public void testRegistroEmpleadorImposibleCrearEmpleadorException2() {
 		a.setEmpleadores(esc.getEmpleadores());
 		try {
-			a.registroEmpleador("Berni", "berni1234", "Bernardo", "223123456", Constantes.SALUD, "FISICO");
+			a.registroEmpleador("Berni", "berni1234", "Bernardo", "223123456", "FISICO", Constantes.SALUD);
 			fail("Debería lanzar ImposibleCrearEmpleadorException");
 		} catch (ImposibleCrearEmpleadorException e) {
 			
@@ -77,7 +83,7 @@ public class TestAgenciaListasVacias {
 	public void testRegistroEmpleadorImposibleCrearEmpleadorException3() {
 		a.setEmpleadores(esc.getEmpleadores());
 		try {
-			a.registroEmpleador("Berni", "berni1234", null, "223123456", Constantes.SALUD, Constantes.FISICA);
+			a.registroEmpleador("Berni", "berni1234", null, "223123456", Constantes.FISICA, Constantes.SALUD);
 			fail("Debería lanzar ImposibleCrearEmpleadorException");
 		} catch (ImposibleCrearEmpleadorException e) {
 			
@@ -91,7 +97,7 @@ public class TestAgenciaListasVacias {
 	public void testRegistroEmpleadorListaVaciaExitoso() {
 		a.setEmpleadores(esc.getEmpleadores());
 		try {
-			a.registroEmpleador("Berni", "berni1234", "Bernardo", "223123456", Constantes.SALUD, Constantes.FISICA);
+			a.registroEmpleador("Berni", "berni1234", "Bernardo", "223123456", Constantes.FISICA, Constantes.SALUD);
 		} catch (NewRegisterException | ImposibleCrearEmpleadorException e) {
 			fail("No debería lanzar excepcion");
 		}
